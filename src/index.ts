@@ -3,22 +3,13 @@ import express from "express";
 const app = express();
 const port: Number = 5050;
 
-import { IncomeEntity, IncomeType } from "../lib/classes/incomeEntity";
+import client from "../lib/db/pgConnector";
 
-import Category from "../lib/db/dbConnector";
+app.get("/", async (req, res) => {
 
-app.get("/", (req, res) => {
+	const resp = await client.query("select * from budget.category");
 
-	Category.find((err: any, categories: any) => {
-
-		console.log(categories);
-
-	 if (err) {
-			res.send("Error!");
-		} else {
-			res.send(categories);
-		}
-	});
+	console.log(resp);
 
 });
 
