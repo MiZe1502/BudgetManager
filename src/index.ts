@@ -5,10 +5,21 @@ const port: Number = 5050;
 
 import { IncomeEntity, IncomeType } from "../lib/classes/incomeEntity";
 
-const income = new IncomeEntity("test", IncomeType.Salary, 30000);
+import Category from "../lib/db/dbConnector";
 
 app.get("/", (req, res) => {
-	res.send("hello");
+
+	Category.find((err: any, categories: any) => {
+
+		console.log(categories);
+
+	 if (err) {
+			res.send("Error!");
+		} else {
+			res.send(categories);
+		}
+	});
+
 });
 
 app.listen(port, () => {
