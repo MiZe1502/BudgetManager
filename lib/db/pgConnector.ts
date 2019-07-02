@@ -1,27 +1,32 @@
-import { Client, ClientConfig } from "pg";
+import { Client, ClientConfig, Pool, PoolConfig } from "pg";
 
-// TODO: Заменить пароль на реальный
-// TODO : Создать дев юзера в базе
-// TODO: Переделать на пул?
-// TODO: Добавить обработчики событий коннекта-дисконнекта и тд
-// TODO: Сделать через асинк-эвейты
-
-const config: ClientConfig = {
-	user: "postgres",
+const config: PoolConfig = {
+	user: "dev",
     database: "budget",
-    password: "",
+    password: "secretdevpassword",
     port: 5433,
-    host: "localhost"
+	host: "localhost",
+	max: 20,
+	idleTimeoutMillis: 30000,
+	connectionTimeoutMillis: 2000
 };
 
-const client: Client = new Client(config);
+const pool: Pool = new Pool(config);
 
-client.connect()
-	.then(() => {
-		console.log("connected");
-	})
-	.catch((err) => {
-		console.log(`error: ${err}`);
-	});
+pool.on("connect", () => {
+	console.log(`connect client`);
+});
 
-export default client;
+pool.on("acquire", () => {
+	console.log(`acquire client`);
+});
+
+pool.on("error", (err) => {
+	console.log(`error in postgres: ${err.message}`);
+});
+
+pool.on("remove", (err) => {
+	console.log(`remove client from pool`);
+});
+
+export default pool;
