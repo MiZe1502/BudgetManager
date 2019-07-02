@@ -1,4 +1,4 @@
-import { Client, ClientConfig, Pool, PoolConfig } from "pg";
+import { Pool, PoolConfig } from "pg";
 
 const config: PoolConfig = {
 	user: "dev",

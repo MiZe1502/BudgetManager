@@ -1,9 +1,15 @@
 import { BaseEntity } from "./baseEntity";
 
-export enum IncomeType {
-	Salary,
-	Bonus,
-	Gift,
+// export enum IncomeType {
+// 	Salary,
+// 	Bonus,
+// 	Gift,
+// }
+
+export class IncomeType extends BaseEntity {
+	constructor(name: string) {
+		super(name);
+	}
 }
 
 export class IncomeEntity extends BaseEntity {
