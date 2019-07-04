@@ -1,4 +1,4 @@
-backend: node.js + express + typescript
+backend: node.js + expressJS + typescript + typeORM + inversifyJS (IoC/DI)
 
 frontend: react + flow
 

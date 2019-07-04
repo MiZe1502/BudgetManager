@@ -29,6 +29,7 @@
     "class-transformer": "^0.2.3",
     "reflect-metadata": "^0.1.13",
     "tslint": "^5.18.0",
+    "typeorm": "^0.2.18",
     "typescript": "^3.5.2"
   }
 }

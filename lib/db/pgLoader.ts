@@ -1,8 +1,10 @@
+//TODO: Видимо, этот класс уже не нужен и его надо убрать
+
 import { Client, Pool, QueryResult } from "pg";
 
 import { plainToClass } from "class-transformer";
 
-import { IncomeType } from "../classes/incomeEntity";
+import { IncomeType } from "../classes/entities/incomeEntity";
 
 type PgClient = Client | Pool;
 
