@@ -3,7 +3,7 @@ import express from "express";
 const app = express();
 const port: Number = 5050;
 
-import {ConnectionOptions, getConnection } from "typeorm";
+import {ConnectionOptions, getConnection, getCustomRepository } from "typeorm";
 import PgConnector from "../lib/db/pgConnector";
 
 import { IncomeType } from "../lib/classes/entities/incomeEntity";
@@ -12,7 +12,7 @@ import { IncomeTypeRepository } from "../lib/classes/repositories/incomeTypesRep
 const config: ConnectionOptions = {
 	type: "postgres",
 	host: "localhost",
-	port: 5433,
+	port: 5432,
 	username: "dev",
 	password: "secretdevpassword",
 	database: "budget",
@@ -31,41 +31,49 @@ pgConnector.connect();
 
 app.get("/", async (req, res) => {
 
-	const repo = new IncomeTypeRepository(getConnection());
+	// const repo = new IncomeTypeRepository(getConnection());
 
-	let incomeTypes = await repo.getAll();
+	// let incomeTypes = await repo.getAll();
+
+	// console.log(incomeTypes);
+
+	// let incomeTypeSingle = await repo.add(new IncomeType("Премия"));
+
+	// console.log(incomeTypeSingle);
+
+	// incomeTypeSingle = await repo.getById(5);
+
+	// console.log(incomeTypeSingle);
+
+	// incomeTypeSingle = await repo.getByName("Премия");
+
+	// console.log(incomeTypeSingle);
+
+	// incomeTypeSingle = await repo.update(5, new IncomeType("Премия2"));
+
+	// console.log(incomeTypeSingle);
+
+	// incomeTypes = await repo.getAll();
+
+	// console.log(incomeTypes);
+
+	// let affected = await repo.removeById(5);
+
+	// console.log(affected);
+
+	// const incomeType = await repo.add(new IncomeType("Премия"));
+
+	// affected = await repo.removeByName("Премия");
+
+	// console.log(affected);
+
+	// res.sendStatus(200);
+
+	const repo: IncomeTypeRepository = getCustomRepository(IncomeTypeRepository);
+
+	const incomeTypes = await repo.find();
 
 	console.log(incomeTypes);
-
-	let incomeTypeSingle = await repo.add(new IncomeType("Премия"));
-
-	console.log(incomeTypeSingle);
-
-	incomeTypeSingle = await repo.getById(3);
-
-	console.log(incomeTypeSingle);
-
-	incomeTypeSingle = await repo.getByName("Премия");
-
-	console.log(incomeTypeSingle);
-
-	incomeTypeSingle = await repo.update(3, new IncomeType("Премия2"));
-
-	console.log(incomeTypeSingle);
-
-	incomeTypes = await repo.getAll();
-
-	console.log(incomeTypes);
-
-	let affected = await repo.removeById(3);
-
-	console.log(affected);
-
-	const incomeType = await repo.add(new IncomeType("Премия"));
-
-	affected = await repo.removeByName("Премия");
-
-	console.log(affected);
 
 	res.sendStatus(200);
 });

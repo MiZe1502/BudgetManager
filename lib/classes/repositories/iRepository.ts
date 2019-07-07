@@ -2,6 +2,7 @@ import { ENGINE_METHOD_DIGESTS } from "constants";
 
 // TODO: Переименовать файлы в camelcase
 
+// TODO: Видимо, этот файл больше не нужен и его надо будет удалить
 export interface IRepository<T> {
 	getAll(): Promise<T[]>;
 	getById(id: number): Promise<T>;
