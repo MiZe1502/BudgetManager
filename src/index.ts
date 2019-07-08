@@ -26,6 +26,10 @@ const config: ConnectionOptions = {
 
 const pgConnector = new PgConnector(config);
 
+
+//TODO: Сделать обработку ошибок через фабричный метод https://blog.logrocket.com/design-patterns-in-node-js/
+
+
 // TODO: Вынести этот старт в асинк, чтобы все успевало законнектиться
 pgConnector.connect();
 
