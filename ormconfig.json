@@ -1,0 +1,13 @@
+{
+	"type": "postgres",
+	"host": "localhost",
+	"port": 5433,
+	"username": "dev",
+	"password": "secretdevpassword",
+	"database": "budget",
+	"synchronize": true,
+	"logging": true,
+	"entities": [
+	   "lib/classes/entities/*.ts"
+	]
+ }

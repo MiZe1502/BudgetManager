@@ -16,6 +16,10 @@ export class CategoryChain {
 		this.items = []
 	}
 
+	getCategories(): Array<Category> {
+		return this.items
+	}
+
 	addCategory(category: Category): void {
 		this.items.push(category)
 	}
