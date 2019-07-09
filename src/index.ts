@@ -102,7 +102,7 @@ app.get("/", async (req, res) => {
 
 	console.log(resp);
 
-	res.sendStatus(200);
+	res.send(resp);
 });
 
 app.listen(port, () => {
