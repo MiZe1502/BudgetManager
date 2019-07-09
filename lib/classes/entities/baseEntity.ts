@@ -4,7 +4,7 @@ import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 export class BaseEntity {
 
 	@Column()
-	private name: string;
+	protected name: string = "";
 
 	@PrimaryGeneratedColumn()
 	private id: number;
