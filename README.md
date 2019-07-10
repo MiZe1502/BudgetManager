@@ -4,7 +4,7 @@ frontend: react + flow
 
 auth: passport.js
 
-api: grapgql + apollo
+api: grapgql (type-grapghql)
 
 db: postgresql + redis
 

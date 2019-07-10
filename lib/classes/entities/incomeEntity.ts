@@ -2,6 +2,9 @@ import { Column, Entity, JoinColumn, OneToOne } from "typeorm";
 import { BaseEntity } from "./baseEntity";
 import { UserEntity } from "./userEntity";
 
+import { Field, Int, ObjectType } from "type-graphql";
+
+@ObjectType()
 @Entity()
 export class IncomeType extends BaseEntity {
 	constructor(name: string) {

@@ -1,7 +1,7 @@
 import { BaseEntity } from "./baseEntity";
 
 
-class Category extends BaseEntity {
+class GoodsCategory extends BaseEntity {
 
 	constructor(name: string) {
 		super(name)
@@ -10,17 +10,17 @@ class Category extends BaseEntity {
 
 export class CategoryChain {
 
-	private items: Array<Category>
+	private items: Array<GoodsCategory>
 
 	constructor() {
 		this.items = []
 	}
 
-	getCategories(): Array<Category> {
+	getCategories(): Array<GoodsCategory> {
 		return this.items
 	}
 
-	addCategory(category: Category): void {
+	addCategory(category: GoodsCategory): void {
 		this.items.push(category)
 	}
 

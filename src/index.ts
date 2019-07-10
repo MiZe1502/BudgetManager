@@ -1,7 +1,12 @@
 import express from "express";
 
-const app = express();
 const port: Number = 5050;
+
+import { ApolloServer } from "apollo-server-express";
+import compression from "compression";
+import cors from "cors";
+import depthLimit from "graphql-depth-limit";
+import { createServer } from "http";
 
 import {ConnectionOptions, getConnection, getCustomRepository } from "typeorm";
 import PgConnector from "../lib/db/pgConnector";
@@ -14,6 +19,35 @@ import { IncomeTypeRepository } from "../lib/classes/repositories/incomeTypesRep
 import { UserEntity } from "../lib/classes/entities/userEntity";
 import { IRepository, RepositoryFactory, repositoryType } from "../lib/classes/repositories/repositoryFactory";
 import { ShopRepository } from "../lib/classes/repositories/shopRepository";
+
+import { GraphQLSchema } from "graphql";
+import { buildSchema } from "type-graphql";
+import { IncomeTypeResolver } from "../lib/classes/resolvers/incomeTypeResolver";
+
+async function bootstrap() {
+	const schema: GraphQLSchema = await buildSchema({
+		resolvers: [IncomeTypeResolver]
+	});
+
+	const server: ApolloServer = new ApolloServer({
+		validationRules: [depthLimit(7)],
+		schema,
+		playground: true
+	});
+
+	const app = express();
+
+	app.use("*", cors());
+	app.use(compression());
+	server.applyMiddleware({app, path: "/graphql"});
+
+	const httpServer = createServer(app);
+
+	httpServer.listen(port, () => {
+		console.log(`server started on ${port}`);
+	});
+
+}
 
 // TODO: Вынести данные в .env файл и использовать dotenv
 const config: ConnectionOptions = {
@@ -40,75 +74,27 @@ const pgConnector = new PgConnector(config);
 
 // TODO: аутентификация через passport.js https://medium.com/devschacht/node-hero-chapter-8-27b74c33a5ce https://code.tutsplus.com/ru/tutorials/site-authentication-in-nodejs-user-sign-up--cms-29933
 
+// TODO: SOLID
+// https://medium.com/@samueleresca/inversion-of-control-and-dependency-injection-in-typescript-3040d568aabe
+
+// TODO: implement IoC container http://inversify.io/
+
 // TODO: Вынести этот старт в асинк, чтобы все успевало законнектиться
 pgConnector.connect();
 
-app.get("/", async (req, res) => {
+bootstrap();
 
-	// const repo = new IncomeTypeRepository(getConnection());
+// app.get("/", async (req, res) => {
 
-	// let incomeTypes = await repo.getAll();
+// 	const repo: IRepository = RepositoryFactory.createRepository(repositoryType.IncomeRepository);
 
-	// console.log(incomeTypes);
+// 	const resp = await (repo as IncomeRepository).find({relations: ["type", "user"]});
 
-	// let incomeTypeSingle = await repo.add(new IncomeType("Премия"));
+// 	console.log(resp);
 
-	// console.log(incomeTypeSingle);
+// 	res.sendStatus(200);
+// });
 
-	// incomeTypeSingle = await repo.getById(5);
-
-	// console.log(incomeTypeSingle);
-
-	// incomeTypeSingle = await repo.getByName("Премия");
-
-	// console.log(incomeTypeSingle);
-
-	// incomeTypeSingle = await repo.update(5, new IncomeType("Премия2"));
-
-	// console.log(incomeTypeSingle);
-
-	// incomeTypes = await repo.getAll();
-
-	// console.log(incomeTypes);
-
-	// let affected = await repo.removeById(5);
-
-	// console.log(affected);
-
-	// const incomeType = await repo.add(new IncomeType("Премия"));
-
-	// affected = await repo.removeByName("Премия");
-
-	// console.log(affected);
-
-	// res.sendStatus(200);
-
-// 	const repo: IncomeRepository = getCustomRepository(IncomeRepository);
-
-// 	const repo2: IncomeTypeRepository = getCustomRepository(IncomeTypeRepository);
-
-// 	const income = await repo.find({ relations: ["type"] });
-
-// 	const incomeType = await repo2.findByName("Премия");
-
-// // 	const resp = await repo.save(new IncomeEntity("тестовая премия", incomeType, 20000));
-
-// 	const incomes = await repo.findByTypeName("Премия");
-// 	console.log(incomes);
-
-	const repo: IRepository = RepositoryFactory.createRepository(repositoryType.IncomeRepository);
-
-	const resp = await (repo as IncomeRepository).find({relations: ["type", "user"]});
-
-	console.log(resp);
-
-	res.sendStatus(200);
-});
-
-app.listen(port, () => {
-	console.log(`server started on ${port}`);
-});
-
-// TODO: SOLID
-// https://medium.com/@samueleresca/inversion-of-control-and-dependency-injection-in-typescript-3040d568aabe
-// TODO: implement IoC container http://inversify.io/
+// app.listen(port, () => {
+// 	console.log(`server started on ${port}`);
+// });
