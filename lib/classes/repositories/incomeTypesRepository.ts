@@ -10,7 +10,7 @@ export class IncomeTypeRepository extends Repository<IncomeType> implements IRep
 	}
 
 	public async findByName(name: string): Promise<IncomeType> {
-		return await this.createQueryBuilder("income")
+		return await this.createQueryBuilder("income_type")
 			.where("income_type.name = :name", {name})
 			.getOne();
 	}
