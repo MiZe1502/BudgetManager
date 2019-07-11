@@ -1,7 +1,7 @@
-import { BaseEntity } from "./baseEntity";
-import { CategoryChain } from "./category";
+import { CommentedEntity } from "./commentedEntity";
+import { CategoryChain } from "./goodsCategory";
 
-export class GoodsEntity extends BaseEntity {
+export class GoodsEntity extends CommentedEntity {
 	private amount: number
 	private categoryChain: CategoryChain
 	private price: number

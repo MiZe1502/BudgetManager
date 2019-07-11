@@ -1,7 +1,7 @@
-import { BaseEntity } from "./baseEntity";
+import { CommentedEntity } from "./commentedEntity";
 
 
-class GoodsCategory extends BaseEntity {
+class GoodsCategory extends CommentedEntity {
 
 	constructor(name: string) {
 		super(name)

@@ -1,5 +1,6 @@
 import { Column, Entity, JoinColumn, OneToOne } from "typeorm";
 import { BaseEntity } from "./baseEntity";
+import { CommentedEntity } from "./commentedEntity";
 import { UserEntity } from "./userEntity";
 
 import { Field, Int, ObjectType } from "type-graphql";
@@ -12,11 +13,9 @@ export class IncomeType extends BaseEntity {
 	}
 }
 
-// TODO: Надо добавить поле comment. Возможно, добавить в базовый класс
-
 @ObjectType()
 @Entity("income")
-export class IncomeEntity extends BaseEntity {
+export class IncomeEntity extends CommentedEntity {
 
 	@Field((type) => IncomeType)
 	@OneToOne((type) => IncomeType)
