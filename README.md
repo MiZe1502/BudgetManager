@@ -1,6 +1,6 @@
 backend: node.js + expressJS + typescript + typeORM + inversifyJS (IoC/DI) + dotenv
 
-frontend: react + flow
+frontend: react/redux + flow
 
 auth: passport.js
 

@@ -25,9 +25,4 @@ export class BaseEntity {
 		this.name = name;
 	}
 
-	// TODO: Сделать универсальную конвертацию в любой класс через генерики или как-то еще и выделить для этого отдельный класс
-
-	// static convert<T>(data: any): T {
-	// 	return plainToClass(T, data);
-	// }
 }

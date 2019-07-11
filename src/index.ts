@@ -18,10 +18,10 @@ import { createServer } from "http";
 import {ConnectionOptions, getConnection, getCustomRepository } from "typeorm";
 import PgConnector from "../lib/db/pgConnector";
 
+import { GoodsCategoryEntity } from "../lib/classes/entities/goodsCategoryEntity";
 import { IncomeEntity, IncomeType } from "../lib/classes/entities/incomeEntity";
 import { ShopEntity } from "../lib/classes/entities/shopEntity";
-import { IncomeRepository } from "../lib/classes/repositories/incomeRepository";
-import { IncomeTypeRepository } from "../lib/classes/repositories/incomeTypesRepository";
+import { GoodsCategoryRepository } from "../lib/classes/repositories/goodsCategoryRepository";
 
 import { UserEntity } from "../lib/classes/entities/userEntity";
 import { IRepository, RepositoryFactory, repositoryType } from "../lib/classes/repositories/repositoryFactory";
@@ -49,6 +49,17 @@ async function bootstrap() {
 	app.use(compression());
 	server.applyMiddleware({app, path: "/graphql"});
 
+	app.get("/", async (req, res) => {
+
+		const repo: IRepository = RepositoryFactory.createRepository(repositoryType.GoodsCategoryRepository);
+
+		const resp = await (repo as GoodsCategoryRepository).getCategoryChainById(1);
+
+		console.log(resp);
+
+		res.sendStatus(200);
+	});
+
 	const httpServer = createServer(app);
 
 	httpServer.listen(port, () => {
@@ -57,7 +68,6 @@ async function bootstrap() {
 
 }
 
-// TODO: Вынести данные в .env файл и использовать dotenv
 const dbConfig: ConnectionOptions = {
 	type: "postgres",
 	host: process.env.DB_HOST,
@@ -72,7 +82,8 @@ const dbConfig: ConnectionOptions = {
 		IncomeType,
 		IncomeEntity,
 		ShopEntity,
-		UserEntity
+		UserEntity,
+		GoodsCategoryEntity
 	]
 };
 
@@ -91,18 +102,3 @@ const pgConnector = new PgConnector(dbConfig);
 pgConnector.connect();
 
 bootstrap();
-
-// app.get("/", async (req, res) => {
-
-// 	const repo: IRepository = RepositoryFactory.createRepository(repositoryType.IncomeRepository);
-
-// 	const resp = await (repo as IncomeRepository).find({relations: ["type", "user"]});
-
-// 	console.log(resp);
-
-// 	res.sendStatus(200);
-// });
-
-// app.listen(port, () => {
-// 	console.log(`server started on ${port}`);
-// });

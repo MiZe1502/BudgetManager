@@ -68,7 +68,6 @@ export class UserEntity extends BaseEntity {
 	// 	this.lastOnlineAt = userData.lastOnlineAt;
 	// 	this.isActive = userData.isActive;
 
-	// 	// TODO: Надо будет добавить соль и хеш и в таком виде уже сохранять
 	// 	this.password = userData.password;
 	// }
 
