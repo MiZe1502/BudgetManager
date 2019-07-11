@@ -25,7 +25,7 @@ export class GoodsCategoryRepository extends Repository<GoodsCategoryEntity> imp
 	}
 
 	// TODO: Переделать потом, создав фунцию в БД, и дергая только ее
-	public async getCategoryChainById(id: number): Promise<void> {
+	public async getCategoryChainById(id: number): Promise<GoodsCategoryEntity[]> {
 		const query: string = `WITH RECURSIVE nodes(id, name, parent_id) AS (
 								SELECT node.id, node.name, node.parent_id
 								FROM budget.goods_category node WHERE id = ${id}
@@ -34,8 +34,8 @@ export class GoodsCategoryRepository extends Repository<GoodsCategoryEntity> imp
 								FROM budget.goods_category child, nodes node WHERE child.parent_id = node.id
 							)
 							SELECT * FROM nodes`;
-		const res = await this.query(query);
-		console.log(res as GoodsCategoryEntity[]);
+
+		return await this.query(query);
 	}
 
 }

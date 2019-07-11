@@ -29,12 +29,17 @@ import { ShopRepository } from "../lib/classes/repositories/shopRepository";
 
 import { GraphQLSchema } from "graphql";
 import { buildSchema } from "type-graphql";
+import { GoodsCategoryResolver } from "../lib/classes/resolvers/goodsCategoryResolver";
 import { IncomeResolver } from "../lib/classes/resolvers/incomeResolver";
 import { IncomeTypeResolver } from "../lib/classes/resolvers/incomeTypeResolver";
 
 async function bootstrap() {
 	const schema: GraphQLSchema = await buildSchema({
-		resolvers: [IncomeTypeResolver, IncomeResolver]
+		resolvers: [
+			IncomeTypeResolver,
+			IncomeResolver,
+			GoodsCategoryResolver
+		]
 	});
 
 	const server: ApolloServer = new ApolloServer({

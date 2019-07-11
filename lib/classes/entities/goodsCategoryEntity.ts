@@ -1,26 +1,36 @@
 import { Field, ObjectType } from "type-graphql";
-import { Entity, JoinColumn, OneToOne } from "typeorm";
+import { Entity, JoinColumn, OneToOne, Column } from "typeorm";
 import { CommentedEntity } from "./commentedEntity";
 
 @ObjectType()
 @Entity("goods_category")
 export class GoodsCategoryEntity extends CommentedEntity {
 
-	@Field((type) => GoodsCategoryEntity)
+	@Field((type) => GoodsCategoryEntity, {
+		nullable: true
+	})
 	@OneToOne((type) => GoodsCategoryEntity)
 	@JoinColumn({
-		name: "child_id",
+		name: "parent_id",
 		referencedColumnName: "id"
 	})
-	private child: GoodsCategoryEntity = null;
+	private parent?: GoodsCategoryEntity = null;
 
-	constructor(name: string, child: GoodsCategoryEntity) {
+	@Column({
+		name: "parent_id",
+		nullable: true
+	})
+	private parentid?: number
+
+	constructor(name: string, parent: GoodsCategoryEntity) {
 		super(name);
-		this.child = child;
+		this.parent = parent;
 	}
 
 }
 
+
+// TODO: Возможно, этот класс будет не нужен и его придется удалить
 export class CategoryChain {
 
 	private items: GoodsCategoryEntity[];
