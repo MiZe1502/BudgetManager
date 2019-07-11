@@ -1,6 +1,13 @@
 import express from "express";
 
-const port: Number = 5050;
+import { config } from "dotenv";
+const result = config();
+
+if (result.error) {
+  throw result.error;
+}
+
+const port: number = Number(process.env.APP_PORT);
 
 import { ApolloServer } from "apollo-server-express";
 import compression from "compression";
@@ -51,15 +58,15 @@ async function bootstrap() {
 }
 
 // TODO: Вынести данные в .env файл и использовать dotenv
-const config: ConnectionOptions = {
+const dbConfig: ConnectionOptions = {
 	type: "postgres",
-	host: "localhost",
-	port: 5051,
-	username: "dev",
-	password: "secretdevpassword",
-	database: "budget",
+	host: process.env.DB_HOST,
+	port: Number(process.env.DB_PORT),
+	username: process.env.DB_USER,
+	password: process.env.DB_PASS,
+	database: process.env.DB_DATABASE,
 	synchronize: false,
-	schema: "budget",
+	schema: process.env.DB_SCHEMA,
 	logging: true,
 	entities: [
 		IncomeType,
@@ -69,7 +76,7 @@ const config: ConnectionOptions = {
 	]
 };
 
-const pgConnector = new PgConnector(config);
+const pgConnector = new PgConnector(dbConfig);
 
 // TODO: Сделать обработку ошибок через фабричный метод https://blog.logrocket.com/design-patterns-in-node-js/
 
