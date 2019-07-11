@@ -1,5 +1,5 @@
 import { Field, ObjectType } from "type-graphql";
-import { Entity, JoinColumn, OneToOne, Column } from "typeorm";
+import { Column, Entity, JoinColumn, OneToOne } from "typeorm";
 import { CommentedEntity } from "./commentedEntity";
 
 @ObjectType()
@@ -20,7 +20,7 @@ export class GoodsCategoryEntity extends CommentedEntity {
 		name: "parent_id",
 		nullable: true
 	})
-	private parentid?: number
+	private parentid?: number;
 
 	constructor(name: string, parent: GoodsCategoryEntity) {
 		super(name);
@@ -28,7 +28,6 @@ export class GoodsCategoryEntity extends CommentedEntity {
 	}
 
 }
-
 
 // TODO: Возможно, этот класс будет не нужен и его придется удалить
 export class CategoryChain {
