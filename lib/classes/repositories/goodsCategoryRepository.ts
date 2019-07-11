@@ -24,7 +24,7 @@ export class GoodsCategoryRepository extends Repository<GoodsCategoryEntity> imp
 		return res.affected;
 	}
 
-	// TODO: Переделать потом, создав фунцию в БД, и дергая только ее
+	// TODO: Переделать потом, создав фунцию в БД, и дергая только ее https://coderwall.com/p/whf3-a/hierarchical-data-in-postgres
 	public async getCategoryChainById(id: number): Promise<GoodsCategoryEntity[]> {
 		const query: string = `WITH RECURSIVE nodes(id, name, parent_id) AS (
 								SELECT node.id, node.name, node.parent_id
