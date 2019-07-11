@@ -1,8 +1,8 @@
 import { Column, Entity, JoinColumn, OneToOne } from "typeorm";
-import { BaseEntity } from "./baseEntity";
+import { CommentedEntity } from "./commentedEntity";
 
 @Entity("shop")
-export class ShopEntity extends BaseEntity {
+export class ShopEntity extends CommentedEntity {
 
 	@Column()
 	private address: string;

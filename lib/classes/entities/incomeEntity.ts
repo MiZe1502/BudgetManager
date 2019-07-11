@@ -1,7 +1,11 @@
 import { Column, Entity, JoinColumn, OneToOne } from "typeorm";
 import { BaseEntity } from "./baseEntity";
+import { CommentedEntity } from "./commentedEntity";
 import { UserEntity } from "./userEntity";
 
+import { Field, Int, ObjectType } from "type-graphql";
+
+@ObjectType()
 @Entity()
 export class IncomeType extends BaseEntity {
 	constructor(name: string) {
@@ -9,9 +13,11 @@ export class IncomeType extends BaseEntity {
 	}
 }
 
+@ObjectType()
 @Entity("income")
-export class IncomeEntity extends BaseEntity {
+export class IncomeEntity extends CommentedEntity {
 
+	@Field((type) => IncomeType)
 	@OneToOne((type) => IncomeType)
 	@JoinColumn({
 		name: "income_type_id",
@@ -19,9 +25,11 @@ export class IncomeEntity extends BaseEntity {
 	})
 	private type: IncomeType;
 
+	@Field()
 	@Column()
 	private amount: number;
 
+	// @Field((type) => UserEntity)
 	@OneToOne((type) => UserEntity)
 	@JoinColumn({
 		name: "user_id",
@@ -29,6 +37,7 @@ export class IncomeEntity extends BaseEntity {
 	})
 	private user: UserEntity;
 
+	@Field()
 	@Column()
 	private datetime: Date = new Date();
 

@@ -1,5 +1,7 @@
+import { Arg } from "type-graphql";
 import { DeleteResult, EntityRepository, Repository } from "typeorm";
 import { IncomeType } from "../entities/incomeEntity";
+
 import { IRepository } from "./repositoryFactory";
 
 @EntityRepository(IncomeType)
@@ -10,7 +12,7 @@ export class IncomeTypeRepository extends Repository<IncomeType> implements IRep
 	}
 
 	public async findByName(name: string): Promise<IncomeType> {
-		return await this.createQueryBuilder("income")
+		return await this.createQueryBuilder("income_type")
 			.where("income_type.name = :name", {name})
 			.getOne();
 	}

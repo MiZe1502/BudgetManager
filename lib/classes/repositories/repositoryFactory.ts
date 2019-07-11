@@ -1,4 +1,5 @@
 import { getCustomRepository, Repository } from "typeorm";
+import { GoodsCategoryRepository } from "./goodsCategoryRepository";
 import { IncomeRepository } from "./incomeRepository";
 import { IncomeTypeRepository } from "./incomeTypesRepository";
 import { ShopRepository } from "./shopRepository";
@@ -28,6 +29,9 @@ export class RepositoryFactory {
 			}
 			case repositoryType.ShopRepository: {
 				return getCustomRepository(ShopRepository);
+			}
+			case repositoryType.GoodsCategoryRepository: {
+				return getCustomRepository(GoodsCategoryRepository);
 			}
 		}
 

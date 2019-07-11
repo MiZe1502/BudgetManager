@@ -1,10 +1,10 @@
-import { BaseEntity } from "./baseEntity";
+import { CommentedEntity } from "./commentedEntity";
 import { ShopEntity } from "./shopEntity";
 import { GoodsEntity } from "./goodsEntity";
 import { UserEntity } from "./userEntity"
 
 
-class PurchaseEntity extends BaseEntity {
+class PurchaseEntity extends CommentedEntity {
 
 	private shop: ShopEntity
 	private goods: Array<GoodsEntity> = []

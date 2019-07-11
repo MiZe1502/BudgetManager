@@ -1,11 +1,11 @@
-backend: node.js + expressJS + typescript + typeORM + inversifyJS (IoC/DI)
+backend: node.js + expressJS + typescript + typeORM + inversifyJS (IoC/DI) + dotenv
 
-frontend: react + flow
+frontend: react/redux + flow
 
 auth: passport.js
 
-api: grapgql + apollo
+api: graphql (type-grapghql on server-side, apollo on client-side)
 
 db: postgresql + redis
 
-deploy: docker + pm2
+deploy: docker + pm2 + nginx

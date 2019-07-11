@@ -26,16 +26,22 @@ export class IncomeRepository extends Repository<IncomeEntity> implements IRepos
 		return res.affected;
 	}
 
-	public async findByTypeId(id: number): Promise<IncomeEntity[]> {
-		return this.createQueryBuilder("income")
-			.innerJoinAndSelect("income.type", "type", "type.id = :id", { id } )
-			.getMany();
-	}
-
-	public async findByTypeName(name: string): Promise<IncomeEntity[]> {
-		return this.createQueryBuilder("income")
-			.innerJoinAndSelect("income.type", "type", "type.name = :name", { name } )
-			.getMany();
+	public async findByType(id?: number, name?: string): Promise<IncomeEntity[]> {
+		if (name && id) {
+				return this.createQueryBuilder("income")
+					.innerJoinAndSelect("income.type", "type", "type.name = :name AND type.id = :id", { id, name } )
+					.getMany();
+			} else if (name) {
+				return this.createQueryBuilder("income")
+					.innerJoinAndSelect("income.type", "type", "type.name = :name", { name } )
+					.getMany();
+			} else if (id) {
+				return this.createQueryBuilder("income")
+					.innerJoinAndSelect("income.type", "type", "type.id = :id", { id } )
+					.getMany();
+			} else {
+				return await this.find({relations: ["type"]});
+			}
 	}
 
 }
