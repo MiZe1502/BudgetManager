@@ -1,16 +1,36 @@
+import { Field, ObjectType } from "type-graphql";
+import { Column, Entity, JoinColumn, OneToOne } from "typeorm";
 import { CommentedEntity } from "./commentedEntity";
-import { CategoryChain } from "./goodsCategory";
+import { GoodsCategoryEntity  } from "./goodsCategoryEntity";
 
+@ObjectType()
+@Entity("goods")
 export class GoodsEntity extends CommentedEntity {
-	private amount: number
-	private categoryChain: CategoryChain
-	private price: number
 
+	@Field()
+	private amount: number;
 
-	constructor(name: string, categoryChain: CategoryChain, price: number, amount: number) {
+	@Field((type) => GoodsCategoryEntity)
+	@OneToOne((type) => GoodsCategoryEntity)
+	@JoinColumn({
+		name: "category_id",
+		referencedColumnName: "id"
+	})
+	private category: GoodsCategoryEntity;
+
+	@Field({
+		nullable: true
+	})
+	@Column({
+		name: "bar_code",
+		nullable: true
+	})
+	private barCode?: string = null;
+
+	constructor(name: string, category: GoodsCategoryEntity, barCode: string, amount: number) {
 		super(name);
-		this.categoryChain = categoryChain;
+		this.category = category;
 		this.amount = amount;
-		this.price = price;
+		this.barCode = barCode;
 	}
 }

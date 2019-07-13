@@ -20,7 +20,7 @@ export class GoodsCategoryEntity extends CommentedEntity {
 		name: "parent_id",
 		nullable: true
 	})
-	private parentid?: number;
+	private parentId?: number;
 
 	constructor(name: string, parent: GoodsCategoryEntity) {
 		super(name);
@@ -30,27 +30,27 @@ export class GoodsCategoryEntity extends CommentedEntity {
 }
 
 // TODO: Возможно, этот класс будет не нужен и его придется удалить
-export class CategoryChain {
+// export class CategoryChain {
 
-	private items: GoodsCategoryEntity[];
+// 	private items: GoodsCategoryEntity[];
 
-	constructor() {
-		this.items = [];
-	}
+// 	constructor() {
+// 		this.items = [];
+// 	}
 
-	public getCategories(): GoodsCategoryEntity[] {
-		return this.items;
-	}
+// 	public getCategories(): GoodsCategoryEntity[] {
+// 		return this.items;
+// 	}
 
-	public addCategory(category: GoodsCategoryEntity): void {
-		this.items.push(category);
-	}
+// 	public addCategory(category: GoodsCategoryEntity): void {
+// 		this.items.push(category);
+// 	}
 
-	public removeLastCategory(): void {
-		this.items.pop();
-	}
+// 	public removeLastCategory(): void {
+// 		this.items.pop();
+// 	}
 
-	public clearCategoryChain(): void {
-		this.items = [];
-	}
-}
+// 	public clearCategoryChain(): void {
+// 		this.items = [];
+// 	}
+// }
