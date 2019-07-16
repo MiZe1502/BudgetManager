@@ -13,13 +13,15 @@ import { PurchaseDetailsEntity } from "./purhaseDetailsEntity";
 })
 export class PurchaseEntity extends CommentedEntity {
 
-	// @ManyToMany(type => GoodsEntity)
-	// @JoinTable()
-	// private goods: GoodsEntity[] = []
+	@ManyToMany((type) => PurchaseDetailsEntity)
+	@JoinTable({
+		name: "purchase_details"
+	})
+	private details: PurchaseDetailsEntity[];
 
-	@OneToMany((type) => PurchaseDetailsEntity, (detail) => detail.purchase)
-	@Field((type) => PurchaseDetailsEntity)
-	public details: PurchaseDetailsEntity[];
+	// @OneToMany((type) => PurchaseDetailsEntity, (detail) => detail.purchase)
+	// @Field((type) => PurchaseDetailsEntity)
+	// public details: PurchaseDetailsEntity[];
 
 	@Field((type) => ShopEntity)
 	@OneToOne((type) => ShopEntity)

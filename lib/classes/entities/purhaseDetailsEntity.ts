@@ -13,9 +13,15 @@ import { PurchaseEntity } from "./purchaseEntity";
 })
 export class PurchaseDetailsEntity {
 
-    @ManyToOne((type) => PurchaseEntity, (purhase) => purhase.details)
-    @Field((type) => PurchaseEntity)
-    public purchase: PurchaseEntity;
+    // @ManyToOne((type) => PurchaseEntity, (purhase) => purhase.details)
+    // @Field((type) => PurchaseEntity)
+    // public purchase: PurchaseEntity;
+
+    // @Field()
+    // @Column({
+    //     name: "purchase_id"
+    // })
+    // private purchaseId: number;
 
     @Field((type) => Int)
 	@PrimaryGeneratedColumn()
