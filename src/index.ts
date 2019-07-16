@@ -20,7 +20,8 @@ import PgConnector from "../lib/db/pgConnector";
 
 import { GoodsCategoryEntity } from "../lib/classes/entities/goodsCategoryEntity";
 import { GoodsEntity } from "../lib/classes/entities/goodsEntity";
-import { IncomeEntity, IncomeType } from "../lib/classes/entities/incomeEntity";
+import { IncomeEntity } from "../lib/classes/entities/incomeEntity";
+import { IncomeType } from "../lib/classes/entities/incomeTypeEntity";
 import { ShopEntity } from "../lib/classes/entities/shopEntity";
 import { GoodsCategoryRepository } from "../lib/classes/repositories/goodsCategoryRepository";
 

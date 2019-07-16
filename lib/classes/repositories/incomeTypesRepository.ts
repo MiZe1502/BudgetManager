@@ -1,6 +1,6 @@
 import { Arg } from "type-graphql";
 import { DeleteResult, EntityRepository, Repository } from "typeorm";
-import { IncomeType } from "../entities/incomeEntity";
+import { IncomeType } from "../entities/incomeTypeEntity";
 
 import { IRepository } from "./repositoryFactory";
 

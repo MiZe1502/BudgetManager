@@ -1,17 +1,9 @@
 import { Column, Entity, JoinColumn, OneToOne } from "typeorm";
-import { BaseEntity } from "./baseEntity";
 import { CommentedEntity } from "./commentedEntity";
 import { UserEntity } from "./userEntity";
 
 import { Field, Int, ObjectType } from "type-graphql";
-
-@ObjectType()
-@Entity()
-export class IncomeType extends BaseEntity {
-	constructor(name: string) {
-		super(name);
-	}
-}
+import { IncomeType } from "./incomeTypeEntity";
 
 @ObjectType()
 @Entity("income")

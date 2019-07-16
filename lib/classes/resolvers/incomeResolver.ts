@@ -1,6 +1,7 @@
 import { Arg, FieldResolver, Int, Mutation, Query, Resolver, Root } from "type-graphql";
 import { IsNull } from "typeorm";
-import { IncomeEntity, IncomeType } from "../entities/incomeEntity";
+import { IncomeEntity } from "../entities/incomeEntity";
+import { IncomeType } from "../entities/incomeTypeEntity";
 import { IncomeRepository } from "../repositories/incomeRepository";
 import { IRepository, RepositoryFactory, repositoryType } from "../repositories/repositoryFactory";
 

@@ -1,5 +1,5 @@
 import { Arg, FieldResolver, Int, Mutation, Query, Resolver } from "type-graphql";
-import { IncomeType } from "../entities/incomeEntity";
+import { IncomeType } from "../entities/incomeTypeEntity";
 import { IncomeTypeRepository } from "../repositories/incomeTypesRepository";
 import { IRepository, RepositoryFactory, repositoryType } from "../repositories/repositoryFactory";
 import { AddIncomeTypeInput } from "../types/incomeTypeInputType";

@@ -1,5 +1,5 @@
 import { Field, InputType } from "type-graphql";
-import { IncomeType } from "../entities/incomeEntity";
+import { IncomeType } from "../entities/incomeTypeEntity";
 
 @InputType({
 	description: "New input category data"

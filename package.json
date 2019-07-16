@@ -41,6 +41,7 @@
     "class-transformer": "^0.2.3",
     "graphql-import": "^0.7.1",
     "graphql-import-node": "0.0.4",
+    "nodemon": "^1.19.1",
     "reflect-metadata": "^0.1.13",
     "tslint": "^5.18.0",
     "type-graphql": "^0.17.4",
