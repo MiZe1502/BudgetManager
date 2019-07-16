@@ -1,45 +1,39 @@
-import { ShopEntity } from "./shopEntity";
 import { GoodsEntity } from "./goodsEntity";
-import { UserEntity } from "./userEntity"
+import { ShopEntity } from "./shopEntity";
+import { UserEntity } from "./userEntity";
 
-import { Entity, OneToOne, Column, JoinColumn, OneToMany, ManyToMany, JoinTable, ManyToOne } from "typeorm"
-import { Field, ObjectType, Float } from "type-graphql"
+import { Field, Float, Int, ObjectType } from "type-graphql";
+import { Column, Entity, JoinColumn, ManyToMany, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { BaseEntity } from "./baseEntity";
 import { PurchaseEntity } from "./purchaseEntity";
 
 @ObjectType()
 @Entity({
-	name: 'purchase_details'
+	name: "purchase_details"
 })
-export class PurchaseDetailsEntity extends BaseEntity {
+export class PurchaseDetailsEntity {
+
+    @ManyToOne((type) => PurchaseEntity, (purhase) => purhase.details)
+    @Field((type) => PurchaseEntity)
+    public purchase: PurchaseEntity;
+
+    @Field((type) => Int)
+	@PrimaryGeneratedColumn()
+    private id: number;
 
 	@JoinColumn({
-        name: 'goods_id'
+        name: "goods_id"
     })
-    @OneToOne(type => GoodsEntity)
-    @Field(type => GoodsEntity)
-	private goods: GoodsEntity
-
-    @ManyToOne(type => PurchaseEntity, purhase => purhase.details)
-    @Field(type => PurchaseEntity)
-    public purchase: PurchaseEntity
-
-	@ManyToMany(type => GoodsEntity)
-	@JoinTable()
-	private goods: GoodsEntity[] = []
+    @OneToOne((type) => GoodsEntity)
+    @Field((type) => GoodsEntity)
+	private goods: GoodsEntity;
 
 	@Column()
-	@Field(type => Float)
-    private amount: number
-    
-    @Column()
-    @Field(type => Float)
-    private price: number
+	@Field((type) => Float)
+    private amount: number;
 
-	constructor(goods: Array<GoodsEntity>, datetime: Date = new Date()) {
-		super(name)
-		this.goods = goods
-		this.datetime = datetime
-	}
+    @Column()
+    @Field((type) => Float)
+    private price: number;
 
 }

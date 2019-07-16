@@ -1,20 +1,25 @@
 import { CommentedEntity } from "./commentedEntity";
-import { ShopEntity } from "./shopEntity";
 import { GoodsEntity } from "./goodsEntity";
-import { UserEntity } from "./userEntity"
+import { ShopEntity } from "./shopEntity";
+import { UserEntity } from "./userEntity";
 
-import { Entity, OneToOne, Column, JoinColumn, OneToMany, ManyToMany, JoinTable } from "typeorm"
-import { Field, ObjectType } from "type-graphql"
+import { Field, Float, ObjectType } from "type-graphql";
+import { Column, Entity, JoinColumn, JoinTable, ManyToMany, OneToMany, OneToOne } from "typeorm";
 import { PurchaseDetailsEntity } from "./purhaseDetailsEntity";
 
 @ObjectType()
 @Entity({
-	name: 'purchase'
+	name: "purchase"
 })
 export class PurchaseEntity extends CommentedEntity {
 
-	@Column()
-	private datetime: Date = new Date()
+	// @ManyToMany(type => GoodsEntity)
+	// @JoinTable()
+	// private goods: GoodsEntity[] = []
+
+	@OneToMany((type) => PurchaseDetailsEntity, (detail) => detail.purchase)
+	@Field((type) => PurchaseDetailsEntity)
+	public details: PurchaseDetailsEntity[];
 
 	@Field((type) => ShopEntity)
 	@OneToOne((type) => ShopEntity)
@@ -22,42 +27,31 @@ export class PurchaseEntity extends CommentedEntity {
 		name: "shop_id",
 		referencedColumnName: "id"
 	})
-	private shop: ShopEntity
+	private shop: ShopEntity;
 
-	// @ManyToMany(type => GoodsEntity)
-	// @JoinTable()
-	// private goods: GoodsEntity[] = []
-
-	@OneToMany(type => PurchaseDetailsEntity, detail => detail.purchase)
-	@Field(type => PurchaseDetailsEntity)
-	public details: PurchaseDetailsEntity[] = []
-
-
-
-	@Field(type => UserEntity)
-	@OneToOne(type => UserEntity)
+	@Field((type) => UserEntity)
+	@OneToOne((type) => UserEntity)
 	@JoinColumn({
-		name: 'user_id',
-		referencedColumnName: 'id'
+		name: "user_id",
+		referencedColumnName: "id"
 	})
-	private user: UserEntity
+	private user: UserEntity;
 
 	@Column()
 	@Field()
-	private datetime: Date
+	private datetime: Date;
 
 	@Column()
 	@Field()
-	private photo: string
+	private photo: string;
 
 	@Column()
-	@Field(type => Float)
-	private sum: number
+	@Field((type) => Float)
+	private sum: number;
 
-	constructor(goods: Array<GoodsEntity>, datetime: Date = new Date()) {
-		super(name)
-		this.goods = goods
-		this.datetime = datetime
+	constructor(name: string, datetime: Date = new Date()) {
+		super(name);
+		this.datetime = datetime;
 	}
 
 }

@@ -31,6 +31,9 @@ import { ShopRepository } from "../lib/classes/repositories/shopRepository";
 
 import { GraphQLSchema } from "graphql";
 import { buildSchema } from "type-graphql";
+import { PurchaseEntity } from "../lib/classes/entities/purchaseEntity";
+import { PurchaseDetailsEntity } from "../lib/classes/entities/purhaseDetailsEntity";
+import { PurchaseRepository } from "../lib/classes/repositories/purchaseRepository";
 import { GoodsCategoryResolver } from "../lib/classes/resolvers/goodsCategoryResolver";
 import { IncomeResolver } from "../lib/classes/resolvers/incomeResolver";
 import { IncomeTypeResolver } from "../lib/classes/resolvers/incomeTypeResolver";
@@ -58,9 +61,9 @@ async function bootstrap() {
 
 	app.get("/", async (req, res) => {
 
-		const repo: IRepository = RepositoryFactory.createRepository(repositoryType.GoodsCategoryRepository);
+		const repo: IRepository = RepositoryFactory.createRepository(repositoryType.PurchaseRepository);
 
-		const resp = await (repo as GoodsCategoryRepository).getCategoryChainById(1);
+		const resp = await (repo as PurchaseRepository).findById(1);
 
 		console.log(resp);
 
@@ -91,7 +94,9 @@ const dbConfig: ConnectionOptions = {
 		ShopEntity,
 		UserEntity,
 		GoodsCategoryEntity,
-		GoodsEntity
+		GoodsEntity,
+		PurchaseEntity,
+		PurchaseDetailsEntity
 	]
 };
 

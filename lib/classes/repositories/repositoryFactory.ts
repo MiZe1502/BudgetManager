@@ -2,6 +2,7 @@ import { getCustomRepository, Repository } from "typeorm";
 import { GoodsCategoryRepository } from "./goodsCategoryRepository";
 import { IncomeRepository } from "./incomeRepository";
 import { IncomeTypeRepository } from "./incomeTypesRepository";
+import { PurchaseRepository } from "./purchaseRepository";
 import { ShopRepository } from "./shopRepository";
 
 // TODO: Может, переделать на интерфейс как-то. Так избавимся от енума и увеличим уровень абстракции
@@ -32,6 +33,9 @@ export class RepositoryFactory {
 			}
 			case repositoryType.GoodsCategoryRepository: {
 				return getCustomRepository(GoodsCategoryRepository);
+			}
+			case repositoryType.PurchaseRepository: {
+				return getCustomRepository(PurchaseRepository);
 			}
 		}
 
