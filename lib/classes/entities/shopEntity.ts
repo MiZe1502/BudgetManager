@@ -1,10 +1,13 @@
-import { Column, Entity, JoinColumn, OneToOne } from "typeorm";
+import { Field, ObjectType } from "type-graphql";
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from "typeorm";
 import { CommentedEntity } from "./commentedEntity";
 
 @Entity("shop")
+@ObjectType()
 export class ShopEntity extends CommentedEntity {
 
 	@Column()
+	@Field()
 	private address: string;
 
 	constructor(name: string, address: string) {

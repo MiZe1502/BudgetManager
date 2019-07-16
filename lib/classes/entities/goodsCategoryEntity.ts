@@ -16,11 +16,11 @@ export class GoodsCategoryEntity extends CommentedEntity {
 	})
 	private parent?: GoodsCategoryEntity = null;
 
-	@Column({
-		name: "parent_id",
-		nullable: true
-	})
-	private parentId?: number;
+	// @Column({
+	// 	name: "parent_id",
+	// 	nullable: true
+	// })
+	// private parentId?: number;
 
 	constructor(name: string, parent: GoodsCategoryEntity) {
 		super(name);

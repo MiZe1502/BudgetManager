@@ -2,7 +2,7 @@ import { Column, Entity, JoinColumn, OneToOne } from "typeorm";
 import { CommentedEntity } from "./commentedEntity";
 import { UserEntity } from "./userEntity";
 
-import { Field, Int, ObjectType } from "type-graphql";
+import { Field, Float, Int, ObjectType } from "type-graphql";
 import { IncomeType } from "./incomeTypeEntity";
 
 @ObjectType()
@@ -17,7 +17,7 @@ export class IncomeEntity extends CommentedEntity {
 	})
 	private type: IncomeType;
 
-	@Field()
+	@Field((type) => Float)
 	@Column()
 	private amount: number;
 

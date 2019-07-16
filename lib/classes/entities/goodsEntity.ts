@@ -7,9 +7,6 @@ import { GoodsCategoryEntity  } from "./goodsCategoryEntity";
 @Entity("goods")
 export class GoodsEntity extends CommentedEntity {
 
-	@Field()
-	private amount: number;
-
 	@Field((type) => GoodsCategoryEntity)
 	@OneToOne((type) => GoodsCategoryEntity)
 	@JoinColumn({
@@ -27,10 +24,9 @@ export class GoodsEntity extends CommentedEntity {
 	})
 	private barCode?: string = null;
 
-	constructor(name: string, category: GoodsCategoryEntity, barCode: string, amount: number) {
+	constructor(name: string, category: GoodsCategoryEntity, barCode: string) {
 		super(name);
 		this.category = category;
-		this.amount = amount;
 		this.barCode = barCode;
 	}
 }

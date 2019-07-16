@@ -15,44 +15,54 @@ interface UserData {
 	isActive: boolean;
 }
 
+@ObjectType()
 @Entity("user")
 export class UserEntity extends BaseEntity {
 
 	@Column()
+	@Field()
 	private surname: string = "";
 
 	@Column({
 		name: "parent_name"
 	})
+	@Field()
 	private parentName: string = "";
 
 	@Column()
+	@Field()
 	private login: string;
 
 	@Column()
+	@Field()
 	private password: string;
 
 	@Column()
+	@Field()
 	private photo: string;
 
 	@Column({
 		name: "created_at"
 	})
+	@Field()
 	private createdAt: Date = new Date();
 
 	@Column({
 		name: "updated_at"
 	})
+	@Field()
 	private updatedAt: Date = new Date();
 
 	@Column({
 		name: "last_online_at"
 	})
+	@Field()
 	private lastOnlineAt: Date = new Date();
 
 	@Column({
 		name: "is_active"
 	})
+	@Field()
 	private isActive: boolean;
 
 // TODO: Переделать на конфиг-объект для конструктора
