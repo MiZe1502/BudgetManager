@@ -6,15 +6,20 @@ import MenuIcon from '@material-ui/icons/Menu'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import './style.css'
+import { connect } from 'react-redux'
+import { updateSidebarState } from '../../redux/actions/sidebar'
+class Header extends React.Component {
 
-export default class Header extends React.Component {
+    handleSidebarButtonClick = () => {
+        this.props.updateSidebarState(true)
+    }
 
     render() {
         return (
             <div>
                 <AppBar position='static'>
                     <ToolBar className='header-toolbar'>
-                        <IconButton>
+                        <IconButton onClick={ this.handleSidebarButtonClick }>
                             <MenuIcon/>
                         </IconButton>
                         <Typography variant='h6'>
@@ -29,3 +34,11 @@ export default class Header extends React.Component {
         )
     }
 }
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        updateSidebarState: (open) => dispatch(updateSidebarState(open))
+    }
+}
+
+export default connect((state) => {}, mapDispatchToProps)(Header)
