@@ -4,4 +4,10 @@
 
 .sidebar-link {
     width: inherit;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-weight: 500;
+    height: 30px;
+    color: #3f51b5;
+    text-decoration: none;
+    font-size: 1.25em;
 }
