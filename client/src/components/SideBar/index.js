@@ -12,6 +12,7 @@ import MailIcon from '@material-ui/icons/Mail';
 import './style.css'
 import { connect } from 'react-redux'
 import { updateSidebarState } from '../../redux/actions/sidebar'
+import { updateCurrentSection } from '../../redux/actions/sections'
 import { Link } from 'react-router-dom'
 
 
@@ -48,6 +49,10 @@ function SideBar(props) {
     props.updateSidebarState(open)
   };
 
+  const handleLinkClick = (section) => event => {
+    props.updateCurrentSection(section)
+  }
+ 
   const sideList = () => (
     <div
         className='sidebar-menu'
@@ -57,7 +62,7 @@ function SideBar(props) {
       <List>
         {sections.map((elem, index) => (
           <ListItem button key={elem.text}>
-            <Link className="sidebar-link" to={elem.url}>{elem.text}</Link>
+            <Link className="sidebar-link" to={elem.url} onClick = {handleLinkClick(elem.text)}>{elem.text}</Link>
             {/* <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon> */}
             {/* <ListItemText primary={elem.text} /> */}
           </ListItem>
@@ -87,7 +92,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        updateSidebarState: (open) => dispatch(updateSidebarState(open))
+        updateSidebarState: (open) => dispatch(updateSidebarState(open)),
+        updateCurrentSection: (section) => dispatch(updateCurrentSection(section))
     }
 }
 

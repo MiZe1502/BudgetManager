@@ -5,9 +5,14 @@ import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
+import Title from '../Title'
 import './style.css'
 import { connect } from 'react-redux'
 import { updateSidebarState } from '../../redux/actions/sidebar'
+
+
+
+
 class Header extends React.Component {
 
     handleSidebarButtonClick = () => {
@@ -22,9 +27,10 @@ class Header extends React.Component {
                         <IconButton onClick={ this.handleSidebarButtonClick }>
                             <MenuIcon/>
                         </IconButton>
-                        <Typography variant='h6'>
+                        <Title/>
+                        {/* <Typography variant='h6'>
                             Главная страница
-                        </Typography>
+                        </Typography> */}
                         <Button>
                             Login
                         </Button>
