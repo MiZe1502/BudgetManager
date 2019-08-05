@@ -1,4 +1,4 @@
-import { UPDATE_SIDEBAR_STATE, CLOSE_SIDEBAR, OPEN_SIDEBAR } from '../actionTypes'
+import { UPDATE_SIDEBAR_STATE } from '../actionTypes'
 
 const initialState = {
     open: false

@@ -6,9 +6,18 @@ import { BaseEntity } from "./baseEntity";
 @Entity()
 export class CommentedEntity extends BaseEntity {
 
-	@Field()
-	@Column()
-	private comment: string = "";
+	@Field({
+		nullable: true
+	})
+	@Column({
+		nullable: true
+	})
+	private comment?: string = "";
+
+	constructor(name: string, comment: string) {
+		super(name);
+		this.comment = comment;
+	}
 
 	public getComment(): string {
 		return this.comment;

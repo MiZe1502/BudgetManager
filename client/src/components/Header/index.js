@@ -4,13 +4,10 @@ import ToolBar from '@material-ui/core/Toolbar'
 import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
 import Button from '@material-ui/core/Button'
-import Typography from '@material-ui/core/Typography'
 import Title from '../Title'
 import './style.css'
 import { connect } from 'react-redux'
 import { updateSidebarState } from '../../redux/actions/sidebar'
-
-
 
 
 class Header extends React.Component {
@@ -28,9 +25,6 @@ class Header extends React.Component {
                             <MenuIcon/>
                         </IconButton>
                         <Title/>
-                        {/* <Typography variant='h6'>
-                            Главная страница
-                        </Typography> */}
                         <Button>
                             Login
                         </Button>

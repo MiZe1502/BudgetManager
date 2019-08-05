@@ -37,13 +37,20 @@ import { PurchaseRepository } from "../lib/classes/repositories/purchaseReposito
 import { GoodsCategoryResolver } from "../lib/classes/resolvers/goodsCategoryResolver";
 import { IncomeResolver } from "../lib/classes/resolvers/incomeResolver";
 import { IncomeTypeResolver } from "../lib/classes/resolvers/incomeTypeResolver";
+import { ShopResolver } from "../lib/classes/resolvers/shopResolver";
+
+async function connectToDb() {
+	const pgConnector = new PgConnector(dbConfig);
+	pgConnector.connect();
+}
 
 async function bootstrap() {
 	const schema: GraphQLSchema = await buildSchema({
 		resolvers: [
 			IncomeTypeResolver,
 			IncomeResolver,
-			GoodsCategoryResolver
+			GoodsCategoryResolver,
+			ShopResolver
 		]
 	});
 
@@ -61,9 +68,9 @@ async function bootstrap() {
 
 	app.get("/", async (req, res) => {
 
-		const repo: IRepository = RepositoryFactory.createRepository(repositoryType.PurchaseRepository);
+		const repo: IRepository = RepositoryFactory.createRepository(repositoryType.ShopRepository);
 
-		const resp = await (repo as PurchaseRepository).findById(1);
+		const resp = await (repo as ShopRepository).findById(1);
 
 		console.log(resp);
 
@@ -95,12 +102,10 @@ const dbConfig: ConnectionOptions = {
 		UserEntity,
 		GoodsCategoryEntity,
 		GoodsEntity,
-		PurchaseEntity,
-		PurchaseDetailsEntity
+	// 	PurchaseEntity,
+	// 	PurchaseDetailsEntity
 	]
 };
-
-const pgConnector = new PgConnector(dbConfig);
 
 // TODO: Сделать обработку ошибок через фабричный метод https://blog.logrocket.com/design-patterns-in-node-js/
 
@@ -112,6 +117,6 @@ const pgConnector = new PgConnector(dbConfig);
 // TODO: implement IoC container http://inversify.io/
 
 // TODO: Вынести этот старт в асинк, чтобы все успевало законнектиться
-pgConnector.connect();
+connectToDb();
 
 bootstrap();

@@ -1,9 +1,10 @@
 import React from 'react'
+import DataTable from '../DataTable'
 
 export default function Shops() {
     return (
         <div>
-            SHOPS PAGE
+            <DataTable/>
         </div>
     )
 }

@@ -1,5 +1,5 @@
 import { Pool, PoolConfig } from "pg";
-import {Connection, ConnectionOptions, createConnection} from "typeorm";
+import { Connection, ConnectionOptions, createConnection } from "typeorm";
 
 export class PgConnector {
 	private config: ConnectionOptions = null;

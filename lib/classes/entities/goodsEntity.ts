@@ -25,7 +25,7 @@ export class GoodsEntity extends CommentedEntity {
 	private barCode?: string = null;
 
 	constructor(name: string, category: GoodsCategoryEntity, barCode: string) {
-		super(name);
+		super(name, "");
 		this.category = category;
 		this.barCode = barCode;
 	}

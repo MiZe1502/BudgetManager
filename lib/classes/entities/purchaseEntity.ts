@@ -51,8 +51,8 @@ export class PurchaseEntity extends CommentedEntity {
 	@Field((type) => Float)
 	private sum: number;
 
-	constructor(name: string, datetime: Date = new Date()) {
-		super(name);
+	constructor(name: string, datetime: Date = new Date(), comment: string) {
+		super(name, comment);
 		this.datetime = datetime;
 	}
 

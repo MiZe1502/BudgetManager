@@ -22,8 +22,8 @@ export class GoodsCategoryEntity extends CommentedEntity {
 	// })
 	// private parentId?: number;
 
-	constructor(name: string, parent: GoodsCategoryEntity) {
-		super(name);
+	constructor(name: string, parent: GoodsCategoryEntity, comment: string) {
+		super(name, comment);
 		this.parent = parent;
 	}
 

@@ -33,8 +33,8 @@ export class IncomeEntity extends CommentedEntity {
 	@Column()
 	private datetime: Date = new Date();
 
-	constructor(name: string, type: IncomeType, amount: number, user: UserEntity, datetime: Date) {
-		super(name);
+	constructor(name: string, type: IncomeType, amount: number, user: UserEntity, datetime: Date, comment: string) {
+		super(name, comment);
 		this.type = type;
 		this.amount = amount;
 		this.user = user;

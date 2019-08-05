@@ -10,7 +10,7 @@ export class ShopRepository extends Repository<ShopEntity> implements IRepositor
 	}
 
 	public async findByName(name: string): Promise<ShopEntity> {
-		return await this.createQueryBuilder("income")
+		return await this.createQueryBuilder("shop")
 			.where("shop.name = :name", { name })
 			.getOne();
 	}

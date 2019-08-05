@@ -10,8 +10,8 @@ export class ShopEntity extends CommentedEntity {
 	@Field()
 	private address: string;
 
-	constructor(name: string, address: string) {
-		super(name);
+	constructor(name: string, address: string, comment: string) {
+		super(name, comment);
 		this.address = address;
 	}
 
