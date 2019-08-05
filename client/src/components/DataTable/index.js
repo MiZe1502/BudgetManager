@@ -1,5 +1,7 @@
 import React from 'react'
 import MaterialTable from 'material-table'
+import { gql } from 'apollo-boost';
+import { Query } from 'react-apollo';
 
 const columns = [
 	{
@@ -34,34 +36,58 @@ const data = [
 	}	
 ]
 
+const GET_MOVIES = gql`
+  	query {
+    	shops {
+			id,
+			name,
+			address,
+			comment
+    	}
+  	}
+`
+
 
 export default class DataTable extends React.Component {
 
 
 	render() {
 		return (
-			<MaterialTable title='Магазины' columns={columns} data={data} editable={
-				{
-					onRowAdd: (newData) => {
-						return new Promise(resolve => {
-							resolve()
-							console.log('add')
-						})
-					},
-					onRowUpdate: (newData, oldData) => {
-						return new Promise(resolve => {
-							resolve()
-							console.log('update')
-						})
-					},
-					onRowDelete: (oldData) => {
-						return new Promise(resolve => {
-							resolve()
-							console.log('delete')
-						})
-					}
-				}
-			}/>
+			<Query query = { GET_MOVIES }>
+				{({loading, error, data}) => {
+
+					console.log(error)
+					console.log(data)
+
+					if (loading) return <div>Loading...</div>;
+					if (error) return <div>Error :(</div>;
+					
+					return (
+						<MaterialTable title='Магазины' columns={columns} data={data.shops} editable={
+							{
+								onRowAdd: (newData) => {
+									return new Promise(resolve => {
+										resolve()
+										console.log('add')
+									})
+								},
+								onRowUpdate: (newData, oldData) => {
+									return new Promise(resolve => {
+										resolve()
+										console.log('update')
+									})
+								},
+								onRowDelete: (oldData) => {
+									return new Promise(resolve => {
+										resolve()
+										console.log('delete')
+									})
+								}
+							}
+						}/>	
+					)
+				}}
+			</Query>
 		)
 	}
 }
