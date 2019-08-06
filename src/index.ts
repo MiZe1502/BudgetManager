@@ -39,51 +39,7 @@ import { IncomeResolver } from "../lib/classes/resolvers/incomeResolver";
 import { IncomeTypeResolver } from "../lib/classes/resolvers/incomeTypeResolver";
 import { ShopResolver } from "../lib/classes/resolvers/shopResolver";
 
-async function connectToDb() {
-	const pgConnector = new PgConnector(dbConfig);
-	pgConnector.connect();
-}
-
-async function bootstrap() {
-	const schema: GraphQLSchema = await buildSchema({
-		resolvers: [
-			IncomeTypeResolver,
-			IncomeResolver,
-			GoodsCategoryResolver,
-			ShopResolver
-		]
-	});
-
-	const server: ApolloServer = new ApolloServer({
-		validationRules: [depthLimit(7)],
-		schema,
-		playground: true
-	});
-
-	const app = express();
-
-	app.use("*", cors());
-	app.use(compression());
-	server.applyMiddleware({app, path: "/graphql"});
-
-	app.get("/", async (req, res) => {
-
-		const repo: IRepository = RepositoryFactory.createRepository(repositoryType.ShopRepository);
-
-		const resp = await (repo as ShopRepository).findById(1);
-
-		console.log(resp);
-
-		res.sendStatus(200);
-	});
-
-	const httpServer = createServer(app);
-
-	httpServer.listen(port, () => {
-		console.log(`server started on ${port}`);
-	});
-
-}
+import shopsRoutes from "../lib/routes/shops";
 
 const dbConfig: ConnectionOptions = {
 	type: "postgres",
@@ -107,6 +63,56 @@ const dbConfig: ConnectionOptions = {
 	]
 };
 
+async function connectToDb() {
+	const pgConnector = new PgConnector(dbConfig);
+	pgConnector.connect();
+}
+
+connectToDb();
+
+async function bootstrap() {
+	const schema: GraphQLSchema = await buildSchema({
+		resolvers: [
+			IncomeTypeResolver,
+			IncomeResolver,
+			GoodsCategoryResolver,
+			ShopResolver
+		]
+	});
+
+	const server: ApolloServer = new ApolloServer({
+		validationRules: [depthLimit(7)],
+		schema,
+		playground: true
+	});
+
+	const app = express();
+
+	app.use("*", cors());
+	app.use(compression());
+	server.applyMiddleware({app, path: "/graphql"});
+
+	app.use("/shops", shopsRoutes);
+
+	app.get("/", async (req, res) => {
+
+		const repo: IRepository = RepositoryFactory.createRepository(repositoryType.ShopRepository);
+
+		const resp = await (repo as ShopRepository).findById(1);
+
+		console.log(resp);
+
+		res.sendStatus(200);
+	});
+
+	const httpServer = createServer(app);
+
+	httpServer.listen(port, () => {
+		console.log(`server started on ${port}`);
+	});
+
+}
+
 // TODO: Сделать обработку ошибок через фабричный метод https://blog.logrocket.com/design-patterns-in-node-js/
 
 // TODO: аутентификация через passport.js https://medium.com/devschacht/node-hero-chapter-8-27b74c33a5ce https://code.tutsplus.com/ru/tutorials/site-authentication-in-nodejs-user-sign-up--cms-29933
@@ -117,6 +123,5 @@ const dbConfig: ConnectionOptions = {
 // TODO: implement IoC container http://inversify.io/
 
 // TODO: Вынести этот старт в асинк, чтобы все успевало законнектиться
-connectToDb();
 
 bootstrap();
