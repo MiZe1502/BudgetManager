@@ -1,7 +1,7 @@
 import React from 'react'
 import MaterialTable from 'material-table'
 import { gql } from 'apollo-boost';
-import { Query } from 'react-apollo';
+import { compose, graphql, wit } from 'react-apollo';
 
 const columns = [
 	{
@@ -36,7 +36,7 @@ const data = [
 	}	
 ]
 
-const GET_MOVIES = gql`
+const GET_SHOPS= gql`
   	query {
     	shops {
 			id,
@@ -47,47 +47,47 @@ const GET_MOVIES = gql`
   	}
 `
 
+const REMOVE_SHOP_BY_NAME = gql`
+	mutation removeShopByName($name: String!) {
+		removeShopByName(name:$name)
+	}
+`
 
-export default class DataTable extends React.Component {
 
+class DataTable extends React.Component {
 
 	render() {
+		console.log(this.props)
+
 		return (
-			<Query query = { GET_MOVIES }>
-				{({loading, error, data}) => {
-
-					console.log(error)
-					console.log(data)
-
-					if (loading) return <div>Loading...</div>;
-					if (error) return <div>Error :(</div>;
-					
-					return (
-						<MaterialTable title='Магазины' columns={columns} data={data.shops} editable={
-							{
-								onRowAdd: (newData) => {
-									return new Promise(resolve => {
-										resolve()
-										console.log('add')
-									})
-								},
-								onRowUpdate: (newData, oldData) => {
-									return new Promise(resolve => {
-										resolve()
-										console.log('update')
-									})
-								},
-								onRowDelete: (oldData) => {
-									return new Promise(resolve => {
-										resolve()
-										console.log('delete')
-									})
-								}
-							}
-						}/>	
-					)
-				}}
-			</Query>
+			<MaterialTable title='Магазины' columns={columns} data={this.props.getShops.shops} editable={
+				{
+					onRowAdd: (newData) => {
+						return new Promise(resolve => {
+							resolve()
+							console.log('add')
+						})
+					},
+					onRowUpdate: (newData, oldData) => {
+						return new Promise(resolve => {
+							resolve()
+							console.log('update')
+						})
+					},
+					onRowDelete: (oldData) => {
+						return new Promise(resolve => {
+							console.log(this.props.removeShopByName)
+							this.props.removeShopByName({variables: {name: oldData.name}})
+							resolve()
+						})
+					}
+				}
+			}/>	
 		)
 	}
 }
+
+export default compose(
+	graphql(GET_SHOPS, { name: 'getShops'}),
+	graphql(REMOVE_SHOP_BY_NAME, { name: 'removeShopByName'})
+)(DataTable)

@@ -21,7 +21,10 @@ export class ShopRepository extends Repository<ShopEntity> implements IRepositor
 	}
 
 	public async removeByName(name: string): Promise<number> {
-		const res = await this.delete(name);
+		const res = await this.createQueryBuilder("shop")
+			.where("shop.name = :name", { name })
+			.delete()
+			.execute();
 		return res.affected;
 	}
 
